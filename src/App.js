@@ -1,6 +1,6 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
-import ListBooks from './components/listBooks'
+import ListBooks from './components/ListBooks'
 import fakeBookData from './fakeData/fakeBookData'
 import './App.css'
 
@@ -25,6 +25,17 @@ class BooksApp extends React.Component {
 
   // build listBooks Component
   // listBooks(books, title)
+
+  updateBooks = (updatedBook) => {
+      const newBooks = this.state.books.map(book => {
+          if (book.id === updatedBook.id) {
+              book = updatedBook
+          }
+          return book
+      })
+
+      this.setState({books: newBooks})
+  }
 
   render() {
     return (
@@ -58,13 +69,13 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
               <div>
                 <div className="bookshelf">
-                  <ListBooks books={this.state.books.filter((book) => book.shelf === 'currentlyReading')} title="Currently Reading" />
+                  <ListBooks books={this.state.books.filter((book) => book.shelf === 'currentlyReading')} title="Currently Reading" updateBooks={this.updateBooks} />
                 </div>
                 <div className="bookshelf">
-                  <ListBooks books={this.state.books.filter((book) => book.shelf === 'wantToRead')} title="Want to Read" />
+                  <ListBooks books={this.state.books.filter((book) => book.shelf === 'wantToRead')} title="Want to Read" updateBooks={this.updateBooks} />
                 </div>
                 <div className="bookshelf">
-                  <ListBooks books={this.state.books.filter((book) => book.shelf === 'read')} title="Read" />
+                  <ListBooks books={this.state.books.filter((book) => book.shelf === 'read')} title="Read" updateBooks={this.updateBooks} />
                 </div>
               </div>
             </div>
