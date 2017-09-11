@@ -2,27 +2,42 @@ import React from 'react'
 import DisplayBook from './DisplayBook'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
+import * as BooksAPI from '../BooksAPI'
 
 class SearchBooks extends React.Component {
     state = {
         query: '',
-        books: null
+        matchedBooks: null
     }
 
     updateQuery = (query) => {
-        this.setState({query: query.trim()})
+        this.setState({query: query.trim()}, () => this.searchAPI())
+    }
+
+    searchAPI = () => {
+        BooksAPI.search(this.state.query, 20).then((books) => {
+            const myBooksIndex = this.returnBooksIndex()
+            const matchedBooks = books.map((book) => {
+                if (book.id in myBooksIndex) {
+                    return myBooksIndex[book.id]
+                }
+
+                return book
+            })
+            this.setState({matchedBooks})
+        })
+    }
+
+    returnBooksIndex = () => {
+        return this.props.myBooks.reduce((acc, currentBook) => {
+            acc[currentBook.id] = currentBook
+            return acc
+        }, {})
     }
 
     render() {
-        const {books, updateShowSearchPage, updateBooks} = this.props
-
-        let matchedBooks
-        if (this.state.query) {
-            const match = new RegExp(escapeRegExp(this.state.query), 'i')
-            matchedBooks = books.filter((book) => match.test(book.title) || match.test(book.authors))
-        } else {
-            matchedBooks = null
-        }
+        const {updateShowSearchPage, updateBooks} = this.props
+        const {matchedBooks} = this.state
 
         return (
             <div className="search-books">
@@ -47,7 +62,7 @@ class SearchBooks extends React.Component {
               </div>
               <div className="search-books-results">
                 <ol className="books-grid">
-                    {matchedBooks && matchedBooks.map((book, index) => {
+                    {Array.isArray(matchedBooks) && matchedBooks.map((book, index) => {
       				  return (
       					  <DisplayBook key={`${book.id}`} book={book} updateBooks={updateBooks}/>
       				  )
