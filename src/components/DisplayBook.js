@@ -10,7 +10,7 @@ const DisplayBook = ({book, updateBooks}) => {
         <li key={`${book.id}`}>
           <div className="book">
             <div className="book-top">
-              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})` }}></div>
               <div className="book-shelf-changer">
                 <select defaultValue={book.shelf} onChange={updateShelf}>
                   <option value="none" disabled>Move to...</option>
@@ -22,7 +22,7 @@ const DisplayBook = ({book, updateBooks}) => {
               </div>
             </div>
             <div className="book-title">{book.title}</div>
-            {book.authors.map((author, index) => {
+            {book.authors && book.authors.map((author, index) => {
                 return (
                     <div key={`${book.id}-author-${index}`} className="book-authors">{author}</div>
                 )
