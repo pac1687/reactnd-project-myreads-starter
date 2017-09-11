@@ -25,6 +25,8 @@ class BooksApp extends React.Component {
     }
 
     render() {
+        const {books} = this.state
+
         return (
             <div className="app">
                 <Route exact path="/" render={() => (
@@ -35,13 +37,13 @@ class BooksApp extends React.Component {
                         <div className="list-books-content">
                             <div>
                                 <div className="bookshelf">
-                                    <ListBooks books={this.state.books.filter((book) => book.shelf === 'currentlyReading')} title="Currently Reading" updateBooks={this.updateBooks}/>
+                                    <ListBooks books={books.filter((book) => book.shelf === 'currentlyReading')} title="Currently Reading" updateBooks={this.updateBooks}/>
                                 </div>
                                 <div className="bookshelf">
-                                    <ListBooks books={this.state.books.filter((book) => book.shelf === 'wantToRead')} title="Want to Read" updateBooks={this.updateBooks}/>
+                                    <ListBooks books={books.filter((book) => book.shelf === 'wantToRead')} title="Want to Read" updateBooks={this.updateBooks}/>
                                 </div>
                                 <div className="bookshelf">
-                                    <ListBooks books={this.state.books.filter((book) => book.shelf === 'read')} title="Read" updateBooks={this.updateBooks}/>
+                                    <ListBooks books={books.filter((book) => book.shelf === 'read')} title="Read" updateBooks={this.updateBooks}/>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +52,7 @@ class BooksApp extends React.Component {
                         </div>
                     </div>
                 )}/>
-                <Route path="/search" render={() => (<SearchBooks myBooks={this.state.books} updateBooks={this.updateBooks}/>)}/>
+                <Route path="/search" render={() => (<SearchBooks myBooks={books} updateBooks={this.updateBooks}/>)}/>
             </div>
         )
     }
