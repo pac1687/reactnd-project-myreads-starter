@@ -15,7 +15,13 @@ class BooksApp extends React.Component {
      */
 
     showSearchPage: false,
-    books: fakeBookData.books
+    books: []
+  }
+
+  componentDidMount() {
+      BooksAPI.getAll().then((books) => {
+          this.setState({books})
+      })
   }
 
   // build lifecycle method for calling out to API to retrieve books
@@ -31,6 +37,7 @@ class BooksApp extends React.Component {
       const newBooks = this.state.books.map(book => {
           if (book.id === updatedBook.id) {
               book = updatedBook
+              BooksAPI.update(updatedBook, updatedBook.shelf)
           }
           return book
       })
