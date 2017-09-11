@@ -34,15 +34,11 @@ class BooksApp extends React.Component {
   // listBooks(books, title)
 
   updateBooks = (updatedBook) => {
-      const newBooks = this.state.books.map(book => {
-          if (book.id === updatedBook.id) {
-              book = updatedBook
-              BooksAPI.update(updatedBook, updatedBook.shelf)
-          }
-          return book
+      BooksAPI.update(updatedBook, updatedBook.shelf).then(() => {
+          BooksAPI.getAll().then((books) => {
+              this.setState({books})
+          })
       })
-
-      this.setState({books: newBooks})
   }
 
   // this will be removed eventually
@@ -54,7 +50,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchBooks books={this.state.books} updateBooks={this.updateBooks} updateShowSearchPage={this.updateShowSearchPage}/>
+          <SearchBooks myBooks={this.state.books} updateBooks={this.updateBooks} updateShowSearchPage={this.updateShowSearchPage}/>
         ) : (
           <div className="list-books">
             <div className="list-books-title">
