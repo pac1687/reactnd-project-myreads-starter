@@ -1,7 +1,5 @@
 import React from 'react'
 import DisplayBook from './DisplayBook'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
 import * as BooksAPI from '../BooksAPI'
 
 class SearchBooks extends React.Component {

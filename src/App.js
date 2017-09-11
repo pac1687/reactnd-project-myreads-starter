@@ -2,7 +2,6 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import ListBooks from './components/ListBooks'
 import SearchBooks from './components/SearchBooks'
-import fakeBookData from './fakeData/fakeBookData'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -23,15 +22,6 @@ class BooksApp extends React.Component {
           this.setState({books})
       })
   }
-
-  // build lifecycle method for calling out to API to retrieve books
-
-  // addBook(book, shelf)
-
-  // removeBook(book, shelf)
-
-  // build listBooks Component
-  // listBooks(books, title)
 
   updateBooks = (updatedBook) => {
       BooksAPI.update(updatedBook, updatedBook.shelf).then(() => {
