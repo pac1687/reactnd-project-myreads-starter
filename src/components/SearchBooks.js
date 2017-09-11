@@ -25,7 +25,11 @@ class SearchBooks extends React.Component {
                 return this.setState({matchedBooks: null})
             }
 
-            const myBooksIndex = this.returnBooksIndex()
+            const myBooksIndex = this.props.myBooks.reduce((acc, currentBook) => {
+                acc[currentBook.id] = currentBook
+                return acc
+            }, {})
+
             const matchedBooks = books.map((book) => {
                 if (book.id in myBooksIndex) {
                     return myBooksIndex[book.id]
@@ -35,13 +39,6 @@ class SearchBooks extends React.Component {
             })
             this.setState({matchedBooks})
         })
-    }
-
-    returnBooksIndex = () => {
-        return this.props.myBooks.reduce((acc, currentBook) => {
-            acc[currentBook.id] = currentBook
-            return acc
-        }, {})
     }
 
     render() {
