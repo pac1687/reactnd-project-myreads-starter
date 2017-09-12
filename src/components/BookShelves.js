@@ -11,15 +11,9 @@ const BookShelves = ({books, updateBooks}) => {
             </div>
             <div className="list-books-content">
                 <div>
-                    <div className="bookshelf">
-                        <ListBooks books={books.filter((book) => book.shelf === 'currentlyReading')} title="Currently Reading" updateBooks={updateBooks} />
-                    </div>
-                    <div className="bookshelf">
-                        <ListBooks books={books.filter((book) => book.shelf === 'wantToRead')} title="Want to Read" updateBooks={updateBooks} />
-                    </div>
-                    <div className="bookshelf">
-                        <ListBooks books={books.filter((book) => book.shelf === 'read')} title="Read" updateBooks={updateBooks} />
-                    </div>
+                    <ListBooks books={books.filter((book) => book.shelf === 'currentlyReading')} title="Currently Reading" updateBooks={updateBooks} />
+                    <ListBooks books={books.filter((book) => book.shelf === 'wantToRead')} title="Want to Read" updateBooks={updateBooks} />
+                    <ListBooks books={books.filter((book) => book.shelf === 'read')} title="Read" updateBooks={updateBooks} />
                 </div>
             </div>
             <div className="open-search">
