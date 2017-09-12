@@ -16,7 +16,7 @@ const DisplayBook = ({book, updateBooks}) => {
                         backgroundImage: `url(${book.imageLinks && book.imageLinks.thumbnail})`
                     }}></div>
                     <div className="book-shelf-changer">
-                        <select defaultValue={book.shelf} onChange={updateShelf}>
+                        <select defaultValue={book.shelf || 'none'} onChange={updateShelf}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
