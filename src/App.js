@@ -1,6 +1,7 @@
 import React from 'react'
-import {Link, Route} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
+import BookShelves from './components/BookShelves'
 import ListBooks from './components/ListBooks'
 import SearchBooks from './components/SearchBooks'
 import './App.css'
@@ -30,27 +31,7 @@ class BooksApp extends React.Component {
         return (
             <div className="app">
                 <Route exact path="/" render={() => (
-                    <div className="list-books">
-                        <div className="list-books-title">
-                            <h1>MyReads</h1>
-                        </div>
-                        <div className="list-books-content">
-                            <div>
-                                <div className="bookshelf">
-                                    <ListBooks books={books.filter((book) => book.shelf === 'currentlyReading')} title="Currently Reading" updateBooks={this.updateBooks}/>
-                                </div>
-                                <div className="bookshelf">
-                                    <ListBooks books={books.filter((book) => book.shelf === 'wantToRead')} title="Want to Read" updateBooks={this.updateBooks}/>
-                                </div>
-                                <div className="bookshelf">
-                                    <ListBooks books={books.filter((book) => book.shelf === 'read')} title="Read" updateBooks={this.updateBooks}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="open-search">
-                            <Link to="/search">Add a book</Link>
-                        </div>
-                    </div>
+                    <BookShelves books={books} updateBooks={this.updateBooks} />
                 )}/>
                 <Route path="/search" render={() => (<SearchBooks myBooks={books} updateBooks={this.updateBooks}/>)}/>
             </div>
